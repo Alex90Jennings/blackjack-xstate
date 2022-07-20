@@ -1,25 +1,33 @@
-import logo from './logo.svg';
 import './App.css';
+import { createMachine, interpret } from 'xstate';
+import { useMachine } from '@xstate/react';
+import "./index.css";
+
+const blackjackCardGame = createMachine({
+  id: 'blackjack',
+  "initial": "lobby",
+  states: {
+    "lobby": {
+      on: {
+        "SWITCH_STARTGAME": {
+          target: "start game"
+        }
+      }
+    },
+  }
+})
+
+const suitsCardGameService = interpret(blackjackCardGame).onTransition((state) =>
+  console.log(state.value)
+);
+
+suitsCardGameService.start();
+suitsCardGameService.send({ type: 'RESOLVE' });
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const [state, send] = useMachine(blackjackCardGame)
+
+  return (<div className="App"></div>);
 }
 
 export default App;
