@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 function StartPage(props) {
-  const setGameState = props.setGameState;
+  const send = props.send;
 
   return (
     <div className="centering">
@@ -17,7 +17,7 @@ function StartPage(props) {
           </div>
           <div className="three-columns-expand-one-three">
             <div></div>
-            <button onClick={() => setGameState("retrieve deck of cards")} className="center-wrapper">
+            <button onClick={() => send("SWITCH_STARTGAME")} className="center-wrapper">
               <Link to="/play">DEAL</Link>
             </button>
             <div></div>

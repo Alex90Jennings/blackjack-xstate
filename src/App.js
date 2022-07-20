@@ -1,4 +1,3 @@
-import './App.css';
 import { Route, Routes } from "react-router-dom";
 import { useState } from "react";
 import "./index.css";
@@ -11,9 +10,65 @@ import "./index.css";
 
 const blackjackCardGame = createMachine({
   id: 'blackjack',
-  "initial": "lobby",
+  "initial": "start page",
   states: {
-    "lobby": {
+    "start page": {
+      on: {
+        "SWITCH_STARTGAME": {
+          target: "start game"
+        }
+      }
+    },
+    "start game": {
+      on: {
+        "SWITCH_BETTING": {
+          target: "betting"
+        }
+      }
+    },
+    "betting": {
+      on: {
+        "SWITCH_DEALCARDS": {
+          target: "player decision"
+        }
+      }
+    },
+    "player decision": {
+      on: {
+        "SWITCH_PLAYERSTAND": {
+          target: "player stand"
+        }
+      }
+    },
+    "player stand": {
+      on: {
+        "SWITCH_DEALERAI": {
+          target: "dealer ai"
+        }
+      }
+    },
+    "dealer ai": {
+      on: {
+        "SWITCH_COMPARESCORES": {
+          target: "compare scores"
+        }
+      }
+    },
+    "compare scores": {
+      on: {
+        "SWITCH_ENDGAME": {
+          target: "end game"
+        }
+      }
+    },
+    "end game": {
+      on: {
+        "SWITCH_GAMEOVER": {
+          target: "game over"
+        }
+      }
+    },
+    "game over": {
       on: {
         "SWITCH_STARTGAME": {
           target: "start game"
@@ -45,7 +100,7 @@ function App() {
   return (
     <main>
       <Routes>
-        <Route path="/" element={<StartPage setGameState={setGameState} />} />
+        <Route path="/" element={<StartPage send={send} />} />
         <Route
           path="/play"
           element={
