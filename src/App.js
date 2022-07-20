@@ -6,7 +6,6 @@ import EndPage from "./EndPage";
 import StartPage from "./StartPage";
 import { createMachine, interpret } from 'xstate';
 import { useMachine } from '@xstate/react';
-import "./index.css";
 
 const blackjackCardGame = createMachine({
   id: 'blackjack',
@@ -85,7 +84,7 @@ const suitsCardGameService = interpret(blackjackCardGame).onTransition((state) =
 suitsCardGameService.start();
 suitsCardGameService.send({ type: 'RESOLVE' });
 
-function App() {
+export default function App() {
   const [state, send] = useMachine(blackjackCardGame)
 
   const [dealerHand, setDealerHand] = useState([]);
@@ -98,48 +97,48 @@ function App() {
   const [bet, setBet] = useState(250);
 
   return (
-    <main>
-      <Routes>
-        <Route path="/" element={<StartPage send={send} />} />
-        <Route
-          path="/play"
-          element={
-            <Blackjack
-              cardDeck={cardDeck}
-              setCardDeck={setCardDeck}
-              dealerHand={dealerHand}
-              playerHand={playerHand}
-              setGameState={setGameState}
-              setDealerHand={setDealerHand}
-              setPlayerHand={setPlayerHand}
-              result={result}
-              wallet={wallet}
-              setWallet={setWallet}
-              bet={bet}
-              setBet={setBet}
-            />
-          }
-        />
-        <Route
-          path="/end"
-          element={
-            <EndPage
-              setGameState={setGameState}
-              setCardDeck={setCardDeck}
-              setAIState={setAIState}
-              setPlayerHand={setPlayerHand}
-              setDealerHand={setDealerHand}
-              setResult={setResult}
-              result={result}
-              wallet={wallet}
-              setWallet={setWallet}
-              bet={bet}
-            />
-          }
-        />
-      </Routes>
-    </main>
+    <>
+      <main>
+        <Routes>
+          <Route path="/" element={<StartPage send={send} />} />
+          <Route
+            path="/play"
+            element={
+              <Blackjack
+                cardDeck={cardDeck}
+                setCardDeck={setCardDeck}
+                dealerHand={dealerHand}
+                playerHand={playerHand}
+                setGameState={setGameState}
+                setDealerHand={setDealerHand}
+                setPlayerHand={setPlayerHand}
+                result={result}
+                wallet={wallet}
+                setWallet={setWallet}
+                bet={bet}
+                setBet={setBet}
+              />
+            }
+          />
+          <Route
+            path="/end"
+            element={
+              <EndPage
+                setGameState={setGameState}
+                setCardDeck={setCardDeck}
+                setAIState={setAIState}
+                setPlayerHand={setPlayerHand}
+                setDealerHand={setDealerHand}
+                setResult={setResult}
+                result={result}
+                wallet={wallet}
+                setWallet={setWallet}
+                bet={bet}
+              />
+            }
+          />
+        </Routes>
+      </main>
+    </>
   );
 }
-
-export default App;
