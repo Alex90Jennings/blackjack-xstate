@@ -17,7 +17,7 @@ function StartPage(props) {
           </div>
           <div className="three-columns-expand-one-three">
             <div></div>
-            <button onClick={() => send("SWITCH_STARTGAME")} className="center-wrapper">
+            <button onClick={() => send("SWITCH_BETTING")} className="center-wrapper">
               <Link to="/play">DEAL</Link>
             </button>
             <div></div>

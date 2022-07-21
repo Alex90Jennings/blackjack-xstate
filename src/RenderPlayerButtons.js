@@ -5,7 +5,7 @@ function RenderCards(props) {
   const isBust = props.isBust;
   const dealCardToPlayer = props.dealCardToPlayer;
   const isTwentyOne = props.isTwentyOne;
-  const setGameState = props.setGameState;
+  const send = props.send;
   const wallet = props.wallet;
   const dealerHand = props.dealerHand;
   const result = props.result;
@@ -54,7 +54,8 @@ function RenderCards(props) {
           </li>
           <li className="display-inline">
             <button
-              onClick={() => setGameState("initialise game")}
+              onClick={() => {send("SWITCH_PLAYER-DECISION")}
+              }
             >{`CLICK TO BET : ${bet}`}</button>
           </li>
           <li className="display-inline">
@@ -77,7 +78,7 @@ function RenderCards(props) {
               <button onClick={() => dealCardToPlayer()}>HIT</button>
             </li>
             <li className="display-inline">
-              <button onClick={() => setGameState("dealer AI")}>STAND</button>
+              <button onClick={() => send("dealer AI")}>STAND</button>
             </li>
             <div></div>
           </ul>
@@ -89,10 +90,10 @@ function RenderCards(props) {
             <button onClick={() => dealCardToPlayer()}>HIT</button>
           </li>
           <li className="display-inline">
-            <button onClick={() => setGameState("dealer AI")}>STAND</button>
+            <button onClick={() => send("dealer AI")}>STAND</button>
           </li>
           <li className="display-inline">
-            <button onClick={() => setGameState("double")}>DOUBLE</button>
+            <button onClick={() => send("double")}>DOUBLE</button>
           </li>
           <div></div>
         </ul>
@@ -101,7 +102,7 @@ function RenderCards(props) {
         <ul className="three-columns-expand-one-three list-reset mg-m-bottom">
           <div></div>
           <li className="display-inline">
-            <button onClick={() => setGameState("dealer AI")}>STAND</button>
+            <button onClick={() => send("dealer AI")}>STAND</button>
           </li>
           <div></div>
         </ul>
@@ -110,7 +111,7 @@ function RenderCards(props) {
         <ul className="three-columns-expand-one-three list-reset mg-m-bottom">
           <div></div>
           <li className="display-inline">
-            <button onClick={() => setGameState("end game")}>
+            <button onClick={() => send("end game")}>
               <Link to="/end">😱😱😱😱😱😱</Link>
             </button>
           </li>
@@ -124,7 +125,7 @@ function RenderCards(props) {
           <ul className="three-columns-expand-one-three list-reset mg-m-bottom">
             <div></div>
             <li className="display-inline">
-              <button onClick={() => setGameState("dealer AI")}>
+              <button onClick={() => send("dealer AI")}>
                 🙂🙂🙂🙂🙂🙂
               </button>
             </li>
@@ -135,7 +136,7 @@ function RenderCards(props) {
         <ul className="three-columns-expand-one-three list-reset mg-m-bottom">
           <div></div>
           <li className="display-inline">
-            <button onClick={() => setGameState("dealer AI")}>
+            <button onClick={() => send("dealer AI")}>
               😍😍😍😍😍😍
             </button>
           </li>
@@ -146,7 +147,7 @@ function RenderCards(props) {
         <ul className="three-columns-expand-one-three list-reset mg-m-bottom">
           <div></div>
           <li className="display-inline">
-            <button onClick={() => setGameState("dealer AI")}>
+            <button onClick={() => send("dealer AI")}>
               <Link to="/end">
                 {`${result}` === "IT'S A TIE"
                   ? `${result}`

@@ -8,7 +8,7 @@ function Player(props) {
   const dealCardToPlayer = props.dealCardToPlayer;
   const isBust = props.isBust;
   const isTwentyOne = props.isTwentyOne;
-  const setGameState= props.setGameState
+  const send = props.send
   const gameState = props.gameState
   const dealerHand = props.dealerHand
   const result = props.result
@@ -50,7 +50,7 @@ function Player(props) {
               dealCardToPlayer={dealCardToPlayer}
               dealerPlaysHand={dealerPlaysHand}
               isTwentyOne={isTwentyOne}
-              setGameState={setGameState}
+              send={send}
               gameState={gameState}
               dealerHand={dealerHand}
               result={result}
