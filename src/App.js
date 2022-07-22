@@ -35,14 +35,17 @@ export default function App() {
   const [bet, setBet] = useState(250);
   const [cardDeck, setCardDeck] = useState([]);
 
-  const dealCard = () => {
+  const dealCard = (cards) => {
     console.log("dealing card")
-    if (cardDeck.length > 0) {
-      const randomIndex = Math.floor(Math.random() * cardDeck.length);
-      const cardToDeal = cardDeck[randomIndex];
-      cardDeck.splice(randomIndex, 1);
+    console.log("cards ", cards)
+    if (blackjackCards.length > 0) {
+      console.log("blackjackCardGame has more than 0 cards")
+      const randomIndex = Math.floor(Math.random() * blackjackCards.length);
+      const cardToDeal = blackjackCards[randomIndex];
+      blackjackCards.splice(randomIndex, 1);
       return cardToDeal;
     }
+    console.log("blackjackCardGame has 0 cards")
     return false;
   };
 
@@ -128,7 +131,7 @@ export default function App() {
   const blackjackCardGame = createMachine({
     id: 'blackjack',
     context: {
-      cardDeck: null
+      cardDeck: []
     },
     "initial": "start page",
     states: {
@@ -141,6 +144,7 @@ export default function App() {
       },
       "betting": {
         entry: ["retrieveNewDeckOfCards"],
+        exit: ["setContextDeckOfCards"],
         on: {
           "SWITCH_PLAYER-DECISION": {
             target: "player decision"
@@ -191,18 +195,23 @@ export default function App() {
       actions: {
         retrieveNewDeckOfCards: (context, event) => {
           if (context.cardDeck.length === 0) retrieveNewDeckOfCards()
-          assign({cardDeck: cardDeck})
-          console.log("retrieve new deck: ", context.cardDeck.length)
+          console.log("retrieved new deck in state: ", cardDeck.length)
         },
-        initialiseGame: (context, event) => {
-            console.log("initialising game ", context)
-            dealCardToPlayer()
-            dealCardToPlayer()
-            dealCardToDealer()
+        setContextDeckOfCards: (context, event) => {
+          console.log(event.data)
+          blackjackCardGame.context.cardDeck = event.data
+          console.log(blackjackCardGame.context.cardDeck)
+        },
+        initialiseGame: (context) => {
+            console.log(blackjackCardGame.context.cardDeck)
+            dealCardToPlayer(blackjackCardGame.context.cardDeck)
+            dealCardToPlayer(blackjackCardGame.context.cardDeck)
+            dealCardToDealer(blackjackCardGame.context.cardDeck)
         }
       }
     }
   )
+  const blackjackCards = blackjackCardGame.context.cardDeck
   const [state, send] = useMachine(blackjackCardGame)
 
   const suitsCardGameService = interpret(blackjackCardGame).onTransition((state) =>
@@ -216,7 +225,7 @@ export default function App() {
     <>
       <main>
         <Routes>
-          <Route path="/" element={<StartPage send={send} />} />
+          <Route path="/" element={<StartPage send={send} cardDeck={cardDeck} />} />
           <Route
             path="/play"
             element={

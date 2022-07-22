@@ -17,6 +17,7 @@ function Player(props) {
   const setBet = props.setBet
   const wallet = props.wallet
   const doubled = props.doubled
+  const cardDeck = props.cardDeck
 
   return (
     <section className="center-wrapper">
@@ -59,6 +60,7 @@ function Player(props) {
               wallet={wallet}
               countScore={countScore}
               doubled={doubled}
+              cardDeck={cardDeck}
             />
             <div></div>
           </div>

@@ -13,6 +13,7 @@ function RenderCards(props) {
   const setBet = props.setBet;
   const countScore = props.countScore;
   const doubled = props.doubled;
+  const cardDeck = props.cardDeck
 
   const increaseBetAmount = () => {
     if (wallet - bet >= 5) setBet(bet + 5);
@@ -54,7 +55,10 @@ function RenderCards(props) {
           </li>
           <li className="display-inline">
             <button
-              onClick={() => {send("SWITCH_PLAYER-DECISION")}
+              onClick={() => {send({
+                type: "SWITCH_PLAYER-DECISION",
+                data: {cardDeck}
+              })}
               }
             >{`CLICK TO BET : ${bet}`}</button>
           </li>

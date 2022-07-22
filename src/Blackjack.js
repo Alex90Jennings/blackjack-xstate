@@ -52,6 +52,7 @@ function Blackjack(props) {
         setBet={setBet}
         wallet={wallet}
         doubled={doubled}
+        cardDeck={cardDeck}
       />
       <Rules />
     </div>
